@@ -1,18 +1,17 @@
 # Load necessary packages
 library(dplyr)
-library(readr)
-library(stringr)
-library(sbtools)
-library(whisker)
 
 # Function to plot data
 plot_data <- function(input_data, output_path) {
+  # read in data
+  model_results <- readr::read_csv(input_data)
+  
   # create .png file for saving plot
-  png(file = file.path(output_path, 'figure_1.png'), width = 8, height = 10, res = 200, units = 'in')
+  png(file = output_path, width = 8, height = 10, res = 200, units = 'in')
   par(omi = c(0,0,0.05,0.05), mai = c(1,1,0,0), las = 1, mgp = c(2,.5,0), cex = 1.5)
   
   # plot data
-  plot(input_data$n_prof, input_data$rmse, xlim = c(2, 1000), ylim = c(4.7, 0.75),ylab = "Test RMSE (°C)", xlab = "Training temperature profiles (#)", log = 'x', axes = FALSE)
+  plot(model_results$n_prof, model_results$rmse, xlim = c(2, 1000), ylim = c(4.7, 0.75),ylab = "Test RMSE (°C)", xlab = "Training temperature profiles (#)", log = 'x', axes = FALSE)
   
   n_profs <- c(2, 10, 50, 100, 500, 980)
   
@@ -25,7 +24,7 @@ plot_data <- function(input_data, output_path) {
     mutate(dl = -pgdl, pb = 0, n_prof = n_profs)
   
   for (mod in c('pb','dl','pgdl')){
-    mod_data <- filter(input_data, model_type == mod)
+    mod_data <- filter(model_results, model_type == mod)
     mod_profiles <- unique(mod_data$n_prof)
     for (mod_profile in mod_profiles){
       d <- filter(mod_data, n_prof == mod_profile) %>% summarize(y0 = min(rmse), y1 = max(rmse), col = unique(col))
@@ -52,16 +51,3 @@ plot_data <- function(input_data, output_path) {
   dev.off()
   
 }
-
-
-##### Visualize Data #####
-
-# Set workspace parameters 
-project_output_dir <- '3_visualize/out'
-dir.create(project_output_dir)
-
-# Load input data
-model_results <- readr::read_csv('2_process/out/model_summary_results.csv')
-
-# Call function
-plot_data(model_results, project_output_dir)
