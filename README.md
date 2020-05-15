@@ -1,11 +1,11 @@
 ## Fetch Data 
 #### Call function to fetch data
-`prediction_data <- fetch_data('1_fetch/out/model_RMSEs.csv')`
+`prediction_data <- download_data('1_fetch/out/model_RMSEs.csv')`
 
 
 ## Process Data 
 #### Call function to get model results
-`model_results <- process_data('1_fetch/out/model_RMSEs.csv', '2_process/out/model_summary_results.csv')`
+`model_results <- process_data('2_process/out/model_summary_results.csv', '1_fetch/out/model_RMSEs.csv')`
 
 
 ## Get Model Diagnostics
@@ -15,5 +15,5 @@
 
 ## Visualize Data
 #### Call function to visualize model results
-`plot_data('2_process/out/model_summary_results.csv', '3_visualize/out/figure_1.png')`
+`plot_data('3_visualize/out/figure_1.png', '2_process/out/model_summary_results.csv')`
 

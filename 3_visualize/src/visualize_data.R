@@ -2,7 +2,7 @@
 library(dplyr)
 
 # Function to plot data
-plot_data <- function(input_data, output_path) {
+plot_data <- function(output_path, input_data) {
   # read in data
   model_results <- readr::read_csv(input_data)
   
