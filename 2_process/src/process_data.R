@@ -3,7 +3,7 @@ library(dplyr)
 library(stringr)
 
 # Function to process data
-process_data <- function(input_data, output_path) {
+process_data <- function(output_path, input_data) {
   # load data
   prediction_data <- readr::read_csv(input_data, col_types = 'iccd')
   
