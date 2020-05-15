@@ -5,10 +5,10 @@ library(stringr)
 # Function to process data
 process_data <- function(input_data, output_path) {
   # load data
-  mendota_file <- readr::read_csv(input_data, col_types = 'iccd')
+  prediction_data <- readr::read_csv(input_data, col_types = 'iccd')
   
   # Add columns specifying color and point sizes
-  eval_data <- mendota_file %>%
+  eval_data <- prediction_data %>%
     filter(str_detect(exper_id, 'similar_[0-9]+')) %>%
     mutate(col = case_when(
       model_type == 'pb' ~ '#1b9e77',

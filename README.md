@@ -1,6 +1,6 @@
 ## Fetch Data 
 #### Call function to fetch data
-`mendota_data <- fetch_data('1_fetch/out/model_RMSEs.csv')`
+`prediction_data <- fetch_data('1_fetch/out/model_RMSEs.csv')`
 
 
 ## Process Data 
